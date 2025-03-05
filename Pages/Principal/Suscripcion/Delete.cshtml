@@ -1,0 +1,69 @@
+@page
+@model mecanico_plus.Pages.Principal.Suscripcion.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Suscripción";
+}
+
+<div class="py-12 bg-gray-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Eliminar Suscripción</h2>
+                <p class="mt-2 text-red-600">¿Está seguro que desea eliminar esta suscripción?</p>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4">
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Empresa</dt>
+                        <dd class="mt-1 text-sm text-gray-900">@Model.GestionCliente.vObjEmpresa.f002_razon_social</dd>
+                    </div>
+
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Fecha de Suscripción</dt>
+                        <dd class="mt-1 text-sm text-gray-900">@Model.GestionCliente.f017_ts.ToShortDateString()</dd>
+                    </div>
+
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Plan</dt>
+                        <dd class="mt-1 text-sm text-gray-900">
+                            @if (Model.GestionCliente.f017_plan_basic) { <span class="mr-2">Básico</span> }
+                            @if (Model.GestionCliente.f017_plan_estandar) { <span class="mr-2">Estándar</span> }
+                            @if (Model.GestionCliente.f017_plan_pro) { <span class="mr-2">Pro</span> }
+                            @if (Model.GestionCliente.f017_plan_enterprise) { <span>Enterprise</span> }
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Número de Usuarios</dt>
+                        <dd class="mt-1 text-sm text-gray-900">@Model.GestionCliente.f017_numero_usuarios</dd>
+                    </div>
+
+                    <div>
+                        <dt class="text-sm font-medium text-gray-500">Estado de Pago</dt>
+                        <dd class="mt-1">
+                            @if (Model.GestionCliente.f017_suscripcion_mensual_pagada)
+                            {
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pagado</span>
+                            }
+                            else
+                            {
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Pendiente</span>
+                            }
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="mt-8 flex justify-end space-x-3">
+                <a href="./List" class="bg-gray-200 py-2 px-4 rounded hover:bg-gray-300">Cancelar</a>
+                <form method="post">
+                    <input type="hidden" asp-for="GestionCliente.f017_rowid" />
+                    <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+@page
+@model mecanico_plus.Pages.Principal.Suscripcion.IndexModel
+@{
+    ViewData["Title"] = "Selección de Plan";
+}
+
+<div class="py-12 bg-gray-100 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="mb-8 text-right">
+            <a href="/Principal/Suscripcion/List" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                Administrar Suscripciones
+            </a>
+        </div>
+        
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Seleccione su Plan
+            </h2>
+            <p class="mt-4 text-xl text-gray-600">
+                Elija el plan que mejor se adapte a sus necesidades
+            </p>
+        </div>
+
+        <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:grid-cols-4">
+            <!-- Plan Básico -->
+            <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Básico</h2>
+                    <p class="mt-4 text-sm text-gray-500">Ideal para pequeños talleres</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">$29</span>
+                        <span class="text-base font-medium text-gray-500">/mes</span>
+                    </p>
+                 <a href="/Principal/Suscripcion/Create?plan=basic" class="mt-8 block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-2 text-center transition-colors duration-300">
+        Seleccionar Plan
+    </a>
+                </div>
+                <div class="pt-6 pb-8 px-6">
+                    <h3 class="text-sm font-medium text-gray-900 tracking-wide">Características incluidas:</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-gray-500">Hasta 2 usuarios</span>
+                        </li>
+                        <!-- Añadir más características -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Plan Estándar -->
+            <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Estándar</h2>
+                    <p class="mt-4 text-sm text-gray-500">Para talleres en crecimiento</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">$59</span>
+                        <span class="text-base font-medium text-gray-500">/mes</span>
+                    </p>
+                       <a href="/Principal/Suscripcion/Create?plan=estandar" class="mt-8 block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-2 text-center transition-colors duration-300">
+        Seleccionar Plan
+    </a>
+                </div>
+                <div class="pt-6 pb-8 px-6">
+                    <h3 class="text-sm font-medium text-gray-900 tracking-wide">Características incluidas:</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-gray-500">Hasta 5 usuarios</span>
+                        </li>
+                        <!-- Añadir más características -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Plan Pro -->
+            <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Pro</h2>
+                    <p class="mt-4 text-sm text-gray-500">Para talleres establecidos</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">$99</span>
+                        <span class="text-base font-medium text-gray-500">/mes</span>
+                    </p>
+                     <a href="/Principal/Suscripcion/Create?plan=pro" class="mt-8 block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-2 text-center transition-colors duration-300">
+        Seleccionar Plan
+    </a>
+                </div>
+                <div class="pt-6 pb-8 px-6">
+                    <h3 class="text-sm font-medium text-gray-900 tracking-wide">Características incluidas:</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-gray-500">Hasta 10 usuarios</span>
+                        </li>
+                        <!-- Añadir más características -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Plan Enterprise -->
+            <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Enterprise</h2>
+                    <p class="mt-4 text-sm text-gray-500">Solución empresarial completa</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">$199</span>
+                        <span class="text-base font-medium text-gray-500">/mes</span>
+                    </p>
+                   <a href="/Principal/Suscripcion/Create?plan=enterprise" class="mt-8 block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-2 text-center transition-colors duration-300">
+        Seleccionar Plan
+    </a>
+                </div>
+                <div class="pt-6 pb-8 px-6">
+                    <h3 class="text-sm font-medium text-gray-900 tracking-wide">Características incluidas:</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex space-x-3">
+                            <svg class="flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-gray-500">Usuarios ilimitados</span>
+                        </li>
+                        <!-- Añadir más características -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

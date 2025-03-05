@@ -1,0 +1,108 @@
+@page
+@model mecanico_plus.Pages.Principal.Suscripcion.ListModel
+@{
+    ViewData["Title"] = "Administrar Suscripciones";
+}
+
+<h1 style="margin-bottom: 20px;" class="text-3xl font-bold">Administrar Suscripciones</h1>
+
+<form method="post">
+    <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Crear nueva ciudad" asp-page-handler="IrACrear">Crear nuevo</button>
+</form>
+
+<div style="margin-top: 20px;" class="table-responsive">
+    <table id="datatable-buttons" class="table table-striped table-bordered datatable" style="width:100%">
+        <thead>
+            <tr class="headings">
+                <th class="column-title">Fecha</th>
+                <th class="column-title">Plan</th>
+                <th class="column-title">Empresa</th>
+                <th class="column-title">Usuarios</th>
+                <th class="column-title">Estado Pago</th>
+                <th class="column-title">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Suscripciones)
+            {
+                <tr>
+                    <td>@item.f017_ts.ToShortDateString()</td>
+                    <td>
+                        @if (item.f017_plan_basic) { <span>Básico</span> }
+                        @if (item.f017_plan_estandar) { <span>Estándar</span> }
+                        @if (item.f017_plan_pro) { <span>Pro</span> }
+                        @if (item.f017_plan_enterprise) { <span>Enterprise</span> }
+                    </td>
+                    <td>@item.vObjEmpresa.f002_razon_social</td>
+                    <td>@item.f017_numero_usuarios</td>
+                    <td>
+                        @if (item.f017_suscripcion_mensual_pagada)
+                        {
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pagado</span>
+                        }
+                        else
+                        {
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Pendiente</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.f017_rowid">Editar</a> |
+                        <a asp-page="./Details" asp-route-id="@item.f017_rowid">Detalles</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.f017_rowid">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*  <div class="mt-6 text-right">
+        <a href="/Principal/Suscripcion/Index" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 transition-colors duration-300">
+            <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Volver a Planes
+        </a>
+    </div> *@
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#datatable-buttons').DataTable({
+                dom: '<"top"lfB>rt<"bottom"ip>',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        className: 'btn',
+                        text: '<i class="fa fa-copy"></i> Copiar'
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn',
+                        text: '<i class="fa fa-file-csv"></i> CSV'
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn',
+                        text: '<i class="fa fa-file-excel"></i> Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn',
+                        text: '<i class="fa fa-file-pdf"></i> PDF'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn',
+                        text: '<i class="fa fa-print"></i> Imprimir'
+                    }
+                ],
+                language: {
+                    url: '/FrameworkInterno/vendors/es-ES-.json'
+                },
+                pageLength: 10,
+                responsive: true,
+                order: [[0, 'desc']]
+            });
+        });
+    </script>
+}

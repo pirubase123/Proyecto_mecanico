@@ -1,0 +1,168 @@
+@page
+@model mecanico_plus.Pages.Principal.Suscripcion.CreateModel
+@{
+    ViewData["Title"] = "Nueva Suscripción";
+}
+
+<div class="py-12 bg-gray-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Nueva Suscripción</h2>
+
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
+                
+                <div class="grid grid-cols-1 gap-6">
+                    <div>
+                        <label asp-for="GestionCliente.f017_rowid_empresa_o_persona_natural" class="block text-sm font-medium text-gray-700">Empresa</label>
+                        <select asp-for="GestionCliente.f017_rowid_empresa_o_persona_natural" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                                asp-items="ViewBag.f017_rowid_empresa_o_persona_natural">
+                            <option value="">-- Seleccione una empresa --</option>
+                        </select>
+                        <span asp-validation-for="GestionCliente.f017_rowid_empresa_o_persona_natural" class="text-red-500 text-sm"></span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-sm font-medium text-gray-700">Seleccione el Plan</label>
+                        <div class="space-y-2">
+                            <div>
+                                <input type="checkbox" asp-for="GestionCliente.f017_plan_basic" class="rounded border-gray-300 text-blue-600" />
+                                <label asp-for="GestionCliente.f017_plan_basic" class="ml-2">Básico (hasta 2 usuarios)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" asp-for="GestionCliente.f017_plan_estandar" class="rounded border-gray-300 text-blue-600" />
+                                <label asp-for="GestionCliente.f017_plan_estandar" class="ml-2">Estándar (hasta 5 usuarios)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" asp-for="GestionCliente.f017_plan_pro" class="rounded border-gray-300 text-blue-600" />
+                                <label asp-for="GestionCliente.f017_plan_pro" class="ml-2">Pro (hasta 10 usuarios)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" asp-for="GestionCliente.f017_plan_enterprise" class="rounded border-gray-300 text-blue-600" />
+                                <label asp-for="GestionCliente.f017_plan_enterprise" class="ml-2">Enterprise (usuarios ilimitados)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label asp-for="GestionCliente.f017_numero_usuarios" class="block text-sm font-medium text-gray-700">Número de Usuarios</label>
+                        <input asp-for="GestionCliente.f017_numero_usuarios" type="number" min="1" 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                        <span asp-validation-for="GestionCliente.f017_numero_usuarios" class="text-red-500 text-sm"></span>
+                        <span id="userValidationMessage" class="text-red-500 text-sm" style="display:none;"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="GestionCliente.f017_suscripcion_mensual_pagada" class="flex items-center">
+                            <input type="checkbox" asp-for="GestionCliente.f017_suscripcion_mensual_pagada" 
+                                   class="rounded border-gray-300 text-blue-600" />
+                            <span class="ml-2">Suscripción Pagada</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label asp-for="GestionCliente.f017_mensaje_aviso_cliente" class="block text-sm font-medium text-gray-700">Mensaje para el Cliente</label>
+                        <textarea asp-for="GestionCliente.f017_mensaje_aviso_cliente" rows="3" 
+                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label asp-for="GestionCliente.f017_mensaje_cliente_aviso_suspencion" class="block text-sm font-medium text-gray-700">Mensaje de Aviso de Suspensión</label>
+                        <textarea asp-for="GestionCliente.f017_mensaje_cliente_aviso_suspencion" rows="3" 
+                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <a href="./List" class="bg-gray-200 py-2 px-4 rounded hover:bg-gray-300">Cancelar</a>
+                        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Obtener elementos del DOM
+        const submitButton = document.querySelector('button[type="submit"]');
+        const userInput = document.getElementById('GestionCliente_f017_numero_usuarios');
+        const planCheckboxes = {
+            basic: document.getElementById('GestionCliente_f017_plan_basic'),
+            standard: document.getElementById('GestionCliente_f017_plan_estandar'),
+            pro: document.getElementById('GestionCliente_f017_plan_pro'),
+            enterprise: document.getElementById('GestionCliente_f017_plan_enterprise')
+        };
+        const validationSpan = document.getElementById('userValidationMessage');
+
+        function validateForm() {
+            const isUsersValid = validateUsers();
+            const isPlanSelected = validatePlanSelection();
+            
+            // Habilitar/deshabilitar botón basado en todas las validaciones
+            submitButton.disabled = !(isUsersValid && isPlanSelected);
+            submitButton.classList.toggle('opacity-50', !isUsersValid || !isPlanSelected);
+            submitButton.classList.toggle('cursor-not-allowed', !isUsersValid || !isPlanSelected);
+            
+            return isUsersValid && isPlanSelected;
+        }
+
+        function validateUsers() {
+            const numUsers = parseInt(userInput.value) || 0;
+            let isValid = true;
+            let message = '';
+
+            // Solo validar si hay un número de usuarios ingresado
+            if (numUsers > 0) {
+                if (planCheckboxes.basic.checked && numUsers > 2) {
+                    isValid = false;
+                    message = 'El plan Básico permite máximo 2 usuarios';
+                }
+                else if (planCheckboxes.standard.checked && numUsers > 5) {
+                    isValid = false;
+                    message = 'El plan Estándar permite máximo 5 usuarios';
+                }
+                else if (planCheckboxes.pro.checked && numUsers > 10) {
+                    isValid = false;
+                    message = 'El plan Pro permite máximo 10 usuarios';
+                }
+            }
+
+            // Mostrar/ocultar mensaje de validación
+            validationSpan.textContent = message;
+            validationSpan.style.display = isValid ? 'none' : 'block';
+
+            return isValid;
+        }
+
+        function validatePlanSelection() {
+            const isPlanSelected = Object.values(planCheckboxes).some(checkbox => checkbox.checked);
+            
+            // Mostrar mensaje si no hay plan seleccionado
+            if (!isPlanSelected) {
+                validationSpan.textContent = 'Debe seleccionar al menos un plan';
+                validationSpan.style.display = 'block';
+            }
+            
+            return isPlanSelected;
+        }
+
+        // Agregar validaciones en tiempo real
+        userInput.addEventListener('input', validateForm);
+        Object.values(planCheckboxes).forEach(checkbox => {
+            checkbox.addEventListener('change', validateForm);
+        });
+
+        // Validación inicial al cargar la página
+        validateForm();
+
+        // Validar antes de enviar el formulario
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+            }
+        });
+    </script>
+}

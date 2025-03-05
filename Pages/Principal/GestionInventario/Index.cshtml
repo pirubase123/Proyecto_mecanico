@@ -1,0 +1,54 @@
+@page
+@model mecanico_plus.Pages.Principal.GestionInventario.IndexModel
+@{
+    ViewData["Title"] = "Gestión de Inventario";
+}
+
+<div class="bg-white rounded-lg shadow p-4">
+    <h1 class="text-xl font-bold mb-3">Inventario (Refacciones y Repuestos)</h1>
+
+    @if (Model.LowStockMessage?.Count > 0)
+    {
+        <div class="mb-4 p-2 bg-red-100 text-red-700 rounded">
+            <b>Alertas de Stock Mínimo:</b>
+            <ul>
+                @foreach(var msg in Model.LowStockMessage)
+                {
+                    <li>@msg</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <form method="post" class="space-y-4">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-2 text-left text-sm font-semibold">Nombre</th>
+                    <th class="px-4 py-2 text-left text-sm font-semibold">Cantidad</th>
+                    <th class="px-4 py-2 text-left text-sm font-semibold">Entrada</th>
+                    <th class="px-4 py-2 text-left text-sm font-semibold">Salida</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach (var item in Model.Inventario)
+                {
+                    <tr>
+                        <td class="px-4 py-2">@item.f015_nombre</td>
+                        <td class="px-4 py-2">@item.f015_cantidad_disponible</td>
+                        <td class="px-4 py-2">
+                            <input type="number" name="entrada_@item.f015_rowid" class="border rounded w-20 px-2 py-1" min="0"/>
+                        </td>
+                        <td class="px-4 py-2">
+                            <input type="number" name="salida_@item.f015_rowid" class="border rounded w-20 px-2 py-1" min="0"/>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit"
+                class="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Actualizar
+        </button>
+    </form>
+</div>
